@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-
-namespace WebApplication1.Services
+﻿namespace WebApplication1.Services
 {
     public class FileService
     {
-        private string _path = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("wwwroot","img"));
+        private string _path = Path.Combine(Directory.GetCurrentDirectory(), Path.Combine("wwwroot", "img"));
 
         public string UploadFile(IFormFile file)
         {

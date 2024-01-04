@@ -1,5 +1,25 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using BackEndProject.Areas.Admin.Models;
+@model BrandIndexVM
+
+<div class="row d-flex flex-row justify-content-between">
+    <h1>Brand Page.</h1>
+    <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Go to Home page</a>
+</div>
+<br />
+<div class="d-flex flex-row justify-content-between">
+    @foreach (var brand in Model.Brands)
+    {
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">@brand.Name</h5>
+            </div>
+            <div class="card-body">
+                <a asp-controller="Category" asp-action="Delete" asp-route-id="@brand.Id" class="btn btn-danger">Delete</a>
+                <a asp-controller="Category" asp-action="Update" asp-route-id="@brand.Id" class="btn btn-warning">Update</a>
+            </div>
+        </div>
+    }
+</div>
+<br />
+
+<a class="btn btn-primary" asp-controller="Brand" asp-action="Add">Go to Brand Add page</a>

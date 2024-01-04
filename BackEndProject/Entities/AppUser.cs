@@ -9,5 +9,6 @@ namespace BackEndProject.Entity
         public string? FirstName { get; set; }
         [Required]
         public string? LastName { get; set; }
+        public string? VerificationToken { get; set; }
     }
 }

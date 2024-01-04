@@ -1,5 +1,15 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using BackEndProject.Areas.Admin.Models;
+@model BrandAddVM
+
+<form asp-controller="Brand" asp-action="Add" method="post">
+    <div class="row">
+        <div class="col">
+            <label for="1" class="form-label">Brand Name</label>
+            <input asp-for="Name" type="text" class="form-control" id="1">
+        </div>
+    </div>
+    <br />
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Add Brand</button>
+    </div>
+</form>

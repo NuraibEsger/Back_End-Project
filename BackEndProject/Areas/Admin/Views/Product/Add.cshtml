@@ -1,0 +1,51 @@
+﻿@using BackEndProject.Areas.Admin.Models;
+@model ProductAddVM
+
+
+<form asp-controller="Product" asp-action="Add" method="post" class="row g-3" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-4">
+            <label for="1" class="form-label">Product Name</label>
+            <input asp-for="Name" type="text" class="form-control" id="1">
+        </div>
+        <div class="col-md-4">
+            <label for="2" class="form-label">Product Description</label>
+            <input asp-for="Description" type="text" class="form-control" id="2">
+        </div>
+        <div class="col-md-4">
+            <label for="3" class="form-label">Product Count</label>
+            <input asp-for="Count" type="number" class="form-control" id="3">
+        </div>
+        <div class="col-md-4">
+            <label for="4" class="form-label">Product Price</label>
+            <input step="0.1" asp-for="Price" type="number" class="form-control" id="4">
+        </div>
+        <div class="col-md-4">
+            <label for="5" class="form-label">Photo</label>
+            <input asp-for="Photos" class="form-control" id="5" multiple="multiple">
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <label for="6" class="form-label">Type</label>
+        <select asp-for="CategoryId" asp-items="@Model.Categories">
+            <option>Please select one</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="7" class="form-label">Type</label>
+        <select asp-for="BrandId" asp-items="@Model.Brands">
+            <option>Please select one</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="8" class="form-label">Type</label>
+        <select asp-for="ColorId" asp-items="@Model.Colors">
+            <option>Please select one</option>
+        </select>
+    </div>
+    <br />
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Add Product</button>
+    </div>
+</form>

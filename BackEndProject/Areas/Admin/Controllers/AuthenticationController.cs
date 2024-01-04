@@ -1,7 +1,10 @@
 ﻿using BackEndProject.Areas.Admin.Models;
+using BackEndProject.Data;
 using BackEndProject.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace BackEndProject.Areas.Admin.Controllers
 {
@@ -9,11 +12,13 @@ namespace BackEndProject.Areas.Admin.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly AppDbContext? _dbContext;
 
-        public AuthenticationController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AuthenticationController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, AppDbContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _dbContext = dbContext;
         }
         public IActionResult Login()
         {
@@ -51,7 +56,8 @@ namespace BackEndProject.Areas.Admin.Controllers
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
-                UserName = model.Email
+                UserName = model.Email,
+                VerificationToken = CreateRandomToken()
             };
 
             var result = await _userManager.CreateAsync(newUser, model.Password!);
@@ -59,11 +65,25 @@ namespace BackEndProject.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Login));
         }
+        [HttpPost("Verify")]
+        public async Task<IActionResult> Verify(string token)
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(x=> x.VerificationToken == token);
+            if(user is null) return BadRequest("Invalid Token");
+
+            await _dbContext.SaveChangesAsync();
+
+            return Ok("User Verified");
+        }
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
 
             return RedirectToAction("Login", "Authentication");
+        }
+        private string CreateRandomToken()
+        {
+            return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
         }
     }
 }

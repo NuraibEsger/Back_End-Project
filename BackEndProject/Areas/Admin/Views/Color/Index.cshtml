@@ -1,0 +1,25 @@
+﻿@using BackEndProject.Areas.Admin.Models;
+@model ColorIndexVM
+@{
+
+    ViewData["Page"] = "Color";
+}
+
+<div class="d-flex justify-content-between">
+    <span></span>
+    <a asp-action="Add" class="btn btn-primary">Add</a>
+
+</div>
+
+@foreach (var color in Model.Colors)
+{
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">@color.Name</h5>
+            <div style="width: 20px; height:20px; border-radius: 50%; background-color: @color.Code"></div>
+            <a asp-action="Update" asp-route-id="@color.Id" class="btn btn-warning">Update</a>
+            <a asp-action="Delete" asp-route-id="@color.Id" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+}
