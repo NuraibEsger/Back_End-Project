@@ -14,9 +14,11 @@ namespace BackEndProject.Controllers
         {
             _dbContext = dbContext;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? categoryId, int? brandId)
         {
-            var product = _dbContext.Products.Include(x=>x.ProductImages).AsNoTracking().ToList();
+            var product = _dbContext.Products
+                .Where(x=> (categoryId == null ? true : x.CategoryId == categoryId) && (brandId == null ? true : x.BrandId == brandId))
+                .Include(x=>x.ProductImages).AsNoTracking().ToList();
             var category = _dbContext.Categories.AsNoTracking().ToList();
             var color = _dbContext.Colors.AsNoTracking().ToList();
             var brand = _dbContext.Brands.AsNoTracking().ToList();
@@ -28,6 +30,18 @@ namespace BackEndProject.Controllers
                 Brands = brand,
                 Categories = category,
             };
+            return View(model);
+        }
+        public IActionResult Detail(int id)
+        {
+            var product = _dbContext.Products.Include(x=>x.ProductImages).AsNoTracking().ToList();
+            if (product == null) { return NotFound(); }
+
+            var model = new ShopDetailVM
+            {
+                Product = product.FirstOrDefault(x => x.Id == id),
+            };
+
             return View(model);
         }
     }

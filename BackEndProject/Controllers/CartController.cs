@@ -23,7 +23,7 @@ namespace BackEndProject.Controllers
 
             if (string.IsNullOrEmpty(userId))
             {
-                return RedirectToAction("Login", "Account");
+                return View();
             }
 
             var product = _dbContext.Products.Find(productId);
