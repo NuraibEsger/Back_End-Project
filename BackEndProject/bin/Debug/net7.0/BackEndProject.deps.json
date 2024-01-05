@@ -15,6 +15,7 @@
           "Microsoft.EntityFrameworkCore.Tools": "7.0.14",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.11",
           "NETCore.MailKit": "2.1.0",
+          "SendGrid": "9.28.1",
           "UmbracoCms.Core": "8.18.12"
         },
         "runtime": {
@@ -2030,6 +2031,18 @@
           }
         }
       },
+      "SendGrid/9.28.1": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.1",
+          "starkbank-ecdsa": "1.3.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/SendGrid.dll": {
+            "assemblyVersion": "9.28.1.0",
+            "fileVersion": "9.28.1.0"
+          }
+        }
+      },
       "Serilog/2.10.0": {
         "runtime": {
           "lib/netstandard2.1/Serilog.dll": {
@@ -2140,6 +2153,14 @@
           "lib/net5.0/Serilog.Sinks.Map.dll": {
             "assemblyVersion": "1.0.2.0",
             "fileVersion": "1.0.2.0"
+          }
+        }
+      },
+      "starkbank-ecdsa/1.3.3": {
+        "runtime": {
+          "lib/netstandard2.1/StarkbankEcdsa.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -4365,6 +4386,13 @@
       "path": "semver/2.0.4",
       "hashPath": "semver.2.0.4.nupkg.sha512"
     },
+    "SendGrid/9.28.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LyIkgjd+svXuQxpqe5pvyOccyUdKcDqwnBNDPjyCngkKeVpXAOTAr3U1DBLWqHEbFHvu2UBFki3SJzDwxvJdfA==",
+      "path": "sendgrid/9.28.1",
+      "hashPath": "sendgrid.9.28.1.nupkg.sha512"
+    },
     "Serilog/2.10.0": {
       "type": "package",
       "serviceable": true,
@@ -4434,6 +4462,13 @@
       "sha512": "sha512-JbPBAeD5hxUQw8TZg3FlOnqVsSu1269nvqFm5DQ7hc+AmsB+hItl+zMSDphMbPJXjL8KdpMRSWNkGi7zTKRmCA==",
       "path": "serilog.sinks.map/1.0.2",
       "hashPath": "serilog.sinks.map.1.0.2.nupkg.sha512"
+    },
+    "starkbank-ecdsa/1.3.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OblOaKb1enXn+dSp7tsx9yjwV+/BEKM9jFhshIkZTwCk7LuTFTp+wSon6rFzuPiIiTGtvVWQNUw2slHjGktJog==",
+      "path": "starkbank-ecdsa/1.3.3",
+      "hashPath": "starkbank-ecdsa.1.3.3.nupkg.sha512"
     },
     "Superpower/2.3.0": {
       "type": "package",

@@ -5328,6 +5328,38 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\product6.jpgaf4c2278-6089-43f5-b716-311deabe4adf.jpg))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\WhatsApp Image 2023-07-18 at 00.20.36.jpeg7f24b706-3b45-457f-bd92-0532fdad385e.jpeg))">
+      <SourceType>Package</SourceType>
+      <SourceId>BackEndProject</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BackEndProject</BasePath>
+      <RelativePath>img/WhatsApp Image 2023-07-18 at 00.20.36.jpeg7f24b706-3b45-457f-bd92-0532fdad385e.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\WhatsApp Image 2023-07-18 at 00.20.36.jpeg7f24b706-3b45-457f-bd92-0532fdad385e.jpeg))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\WhatsApp Image 2023-07-27 at 13.25.52.jpega0d75e82-a8b7-45bd-8382-8c123acfb868.jpeg))">
+      <SourceType>Package</SourceType>
+      <SourceId>BackEndProject</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BackEndProject</BasePath>
+      <RelativePath>img/WhatsApp Image 2023-07-27 at 13.25.52.jpega0d75e82-a8b7-45bd-8382-8c123acfb868.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\WhatsApp Image 2023-07-27 at 13.25.52.jpega0d75e82-a8b7-45bd-8382-8c123acfb868.jpeg))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\js\active.js))">
       <SourceType>Package</SourceType>
       <SourceId>BackEndProject</SourceId>

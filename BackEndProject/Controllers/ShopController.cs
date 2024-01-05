@@ -14,10 +14,12 @@ namespace BackEndProject.Controllers
         {
             _dbContext = dbContext;
         }
-        public IActionResult Index(int? categoryId, int? brandId)
+        public IActionResult Index(int? categoryId, int? brandId, int? colorId)
         {
             var product = _dbContext.Products
-                .Where(x=> (categoryId == null ? true : x.CategoryId == categoryId) && (brandId == null ? true : x.BrandId == brandId))
+                .Where(x=> (categoryId == null ? true : x.CategoryId == categoryId)
+                && (brandId == null ? true : x.BrandId == brandId)
+                && (colorId == null ? true : x.ColorId == colorId))
                 .Include(x=>x.ProductImages).AsNoTracking().ToList();
             var category = _dbContext.Categories.AsNoTracking().ToList();
             var color = _dbContext.Colors.AsNoTracking().ToList();

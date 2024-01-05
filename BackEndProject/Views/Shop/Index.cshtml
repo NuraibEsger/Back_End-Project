@@ -3,6 +3,7 @@
 @{
     string categoryId = Context.Request.Query["categoryId"].ToString();
     string brandId = Context.Request.Query["brandId"].ToString();
+    string colorId = Context.Request.Query["colorId"].ToString();
 }
 
 <div class="shop_sidebar_area">
@@ -19,7 +20,10 @@
                 <ul>
                 @foreach (var category in Model.Categories)
                 {
-                    <li><a asp-action="Index" asp-route-brandId="@brandId" asp-route-categoryId="@category?.Id">@category?.Name</a></li>
+                    var isActive = categoryId == category.Id.ToString();
+                    <li class="@(isActive ? "active" : "")">
+                        <a href="@Url.Action("Index", new {brandId, colorId, categoryId = isActive ? null : category.Id.ToString()})">@category?.Name</a>
+                    </li>
                 }
                 </ul>
             </div>
@@ -33,7 +37,10 @@
             <ul>
                 @foreach (var brand in Model.Brands)
                 {
-                    <li><a asp-action="Index" asp-route-categoryId="@categoryId" asp-route-brandId="@brand?.Id">@brand?.Name</a></li>
+                    var isActive = brandId == brand.Id.ToString();
+                    <li class="@(isActive ? "active" : "")">
+                        <a href="@Url.Action("Index", new {categoryId, colorId, brandId = isActive ? null : brand.Id.ToString()})">@brand?.Name</a>
+                    </li>
                 }
             </ul>
         </div>
