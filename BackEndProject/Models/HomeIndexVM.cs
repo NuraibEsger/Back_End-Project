@@ -6,5 +6,7 @@ namespace BackEndProject.Models
     {
         public List<Product> Products { get; set; }
         public string? SortOrder { get; set; }
+        public int PageCount { get; set; }
+        public int CurrentPage { get; set; }
     }
 }

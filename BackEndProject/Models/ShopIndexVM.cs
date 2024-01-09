@@ -9,5 +9,7 @@ namespace BackEndProject.Models
         public List<Brand>? Brands { get; set; }
         public List<Color>? Colors { get; set; }
         public string? SortOrder { get; set; }
+        public int PageCount { get; set; }
+        public int CurrentPage { get; set; }
     }
 }

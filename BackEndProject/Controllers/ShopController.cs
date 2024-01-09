@@ -14,8 +14,20 @@ namespace BackEndProject.Controllers
         {
             _dbContext = dbContext;
         }
-        public IActionResult Index(int? categoryId, int? brandId, int? colorId, string sortOrder)
+        public IActionResult Index(int productNumber, int pagenumber, int? categoryId, int? brandId, int? colorId, string sortOrder)
         {
+            if (pagenumber <= 0) pagenumber = 1;
+            var defaultTake = 3;
+            if (productNumber != 0)
+            {
+                defaultTake = productNumber;
+            }
+            var page = pagenumber;
+
+            decimal productCount = _dbContext.Products.Count();
+            var pageCount = (int)Math.Ceiling(productCount / defaultTake);
+
+
             var products = _dbContext.Products
                 .Where(x=> (categoryId == null ? true : x.CategoryId == categoryId)
                 && (brandId == null ? true : x.BrandId == brandId)
@@ -24,6 +36,8 @@ namespace BackEndProject.Controllers
             var categories = _dbContext.Categories.AsNoTracking().ToList();
             var colors = _dbContext.Colors.AsNoTracking().ToList();
             var brands = _dbContext.Brands.AsNoTracking().ToList();
+
+            var pagedProducts = products.Skip((page - 1) * defaultTake).Take(defaultTake).ToList();
 
             switch (sortOrder)
             {
