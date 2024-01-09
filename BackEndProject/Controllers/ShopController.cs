@@ -1,5 +1,6 @@
 ﻿using BackEndProject.Areas.Admin.Models;
 using BackEndProject.Data;
+using BackEndProject.Entities;
 using BackEndProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,23 +14,36 @@ namespace BackEndProject.Controllers
         {
             _dbContext = dbContext;
         }
-        public IActionResult Index(int? categoryId, int? brandId, int? colorId)
+        public IActionResult Index(int? categoryId, int? brandId, int? colorId, string sortOrder)
         {
-            var product = _dbContext.Products
+            var products = _dbContext.Products
                 .Where(x=> (categoryId == null ? true : x.CategoryId == categoryId)
                 && (brandId == null ? true : x.BrandId == brandId)
                 && (colorId == null ? true : x.ColorId == colorId))
                 .Include(x=>x.ProductImages).AsNoTracking().ToList();
-            var category = _dbContext.Categories.AsNoTracking().ToList();
-            var color = _dbContext.Colors.AsNoTracking().ToList();
-            var brand = _dbContext.Brands.AsNoTracking().ToList();
+            var categories = _dbContext.Categories.AsNoTracking().ToList();
+            var colors = _dbContext.Colors.AsNoTracking().ToList();
+            var brands = _dbContext.Brands.AsNoTracking().ToList();
+
+            switch (sortOrder)
+            {
+                case "Ascending":
+                    products = products.OrderBy(p => p.Price).ToList();
+                    break;
+                case "Descending":
+                    products = products.OrderByDescending(p => p.Price).ToList();
+                    break;
+                default:
+                    products = products.OrderBy(p => p.Price).ToList();
+                    break;
+            }
 
             var model = new ShopIndexVM
             {
-                Products = product,
-                Colors = color,
-                Brands = brand,
-                Categories = category,
+                Products = products,
+                Colors = colors,
+                Brands = brands,
+                Categories = categories,
             };
             return View(model);
         }

@@ -18,6 +18,7 @@ using WebApplication1.Services;
 
 namespace BackEndProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductController : BaseController
     {
         private readonly AppDbContext _dbContext;

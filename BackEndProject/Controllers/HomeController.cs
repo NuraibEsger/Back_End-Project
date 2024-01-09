@@ -14,9 +14,23 @@ namespace BackEndProject.Controllers
             _dbContext = dbContext;
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(string sortOrder)
         {
-            var products = _dbContext.Products.AsNoTracking().ToList();
+            var products = _dbContext.Products.Include(x=>x.ProductImages).AsNoTracking().ToList();
+
+            switch (sortOrder)
+            {
+                case "Ascending":
+                    products = products.OrderBy(p => p.Price).ToList();
+                    break;
+                case "Descending":
+                    products = products.OrderByDescending(p => p.Price).ToList();
+                    break;
+                default:
+                    products = products.OrderBy(p => p.Price).ToList();
+                    break;
+            }
+
             var model = new HomeIndexVM
             {
                 Products = products

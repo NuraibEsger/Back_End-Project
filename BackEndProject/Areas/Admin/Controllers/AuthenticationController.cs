@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using BackEndProject.Services;
 using Microsoft.AspNet.Identity;
 using SendGrid.Helpers.Mail;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace BackEndProject.Areas.Admin.Controllers
 {
@@ -36,7 +36,7 @@ namespace BackEndProject.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(AuthenticationLoginVM model, string returnUrl)
+        public async Task<IActionResult> Login(AuthenticationLoginVM model)
         {
             if (!ModelState.IsValid) return View(model);
 
@@ -82,6 +82,12 @@ namespace BackEndProject.Areas.Admin.Controllers
 
             if (result.Succeeded)
             {
+                if (model.FirstName.ToLower() == "admin" && model.LastName.ToLower() == "admin")
+                {
+                    // Assign the user to the "Admin" role
+                    await _userManager.AddToRoleAsync(newUser, "Admin");
+                }
+
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
                 var confirmationLink = Url.Action("ConfirmEmail", "Authentication", new { token, email = model.Email }, Request.Scheme);
 

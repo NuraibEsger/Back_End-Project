@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uU+dP+EejLsG9SyU51xSwXzR9/BlBItcqU3ifVo4jQ0=",
+  "Hash": "gju3du3Fvdlc2SOG+foVCNhIpBijjWwSSE+HDOqjOwk=",
   "Source": "BackEndProject",
   "BasePath": "_content/BackEndProject",
   "Mode": "Default",
@@ -5406,6 +5406,23 @@
       "OriginalItemSpec": "wwwroot\\img\\core-img\\search.png"
     },
     {
+      "Identity": "C:\\Users\\User\\Desktop\\Projects\\BackEndProject\\Back_End-Project\\BackEndProject\\wwwroot\\img\\IMG_9122.HEIC162d34cb-99d4-4428-b6ed-245c08097d83.HEIC",
+      "SourceId": "BackEndProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\Projects\\BackEndProject\\Back_End-Project\\BackEndProject\\wwwroot\\",
+      "BasePath": "_content/BackEndProject",
+      "RelativePath": "img/IMG_9122.HEIC162d34cb-99d4-4428-b6ed-245c08097d83.HEIC",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\IMG_9122.HEIC162d34cb-99d4-4428-b6ed-245c08097d83.HEIC"
+    },
+    {
       "Identity": "C:\\Users\\User\\Desktop\\Projects\\BackEndProject\\Back_End-Project\\BackEndProject\\wwwroot\\img\\IMG_9122.HEIC9343507a-e03b-4388-9fea-910cfb2e5642.HEIC",
       "SourceId": "BackEndProject",
       "SourceType": "Discovered",
@@ -5438,6 +5455,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\IMG_9122.HEICbbbe9367-af79-4312-9a2c-6b36984b133b.HEIC"
+    },
+    {
+      "Identity": "C:\\Users\\User\\Desktop\\Projects\\BackEndProject\\Back_End-Project\\BackEndProject\\wwwroot\\img\\photo_5305641502854205908_y.jpg7eaecfaf-b4ba-4d04-ab74-302cc8293294.jpg",
+      "SourceId": "BackEndProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\User\\Desktop\\Projects\\BackEndProject\\Back_End-Project\\BackEndProject\\wwwroot\\",
+      "BasePath": "_content/BackEndProject",
+      "RelativePath": "img/photo_5305641502854205908_y.jpg7eaecfaf-b4ba-4d04-ab74-302cc8293294.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\photo_5305641502854205908_y.jpg7eaecfaf-b4ba-4d04-ab74-302cc8293294.jpg"
     },
     {
       "Identity": "C:\\Users\\User\\Desktop\\Projects\\BackEndProject\\Back_End-Project\\BackEndProject\\wwwroot\\img\\photo_5305641502854205908_y.jpg9ee0f91e-8cc8-4282-83ab-3e6c8c89f77e.jpg",

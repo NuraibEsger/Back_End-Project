@@ -9,7 +9,7 @@ namespace BackEndProject
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public async static Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +43,7 @@ namespace BackEndProject
 
             var app = builder.Build();
 
+            await DataSeed.InitializeAsync(app.Services, app.Configuration);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

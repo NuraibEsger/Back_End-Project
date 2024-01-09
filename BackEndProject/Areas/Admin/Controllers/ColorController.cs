@@ -1,11 +1,13 @@
 ﻿using BackEndProject.Areas.Admin.Models;
 using BackEndProject.Data;
 using BackEndProject.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace BackEndProject.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ColorController : BaseController
     {
         private readonly AppDbContext _dbContext;
