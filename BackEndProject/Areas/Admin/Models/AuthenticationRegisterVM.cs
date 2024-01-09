@@ -4,6 +4,7 @@ namespace BackEndProject.Areas.Admin.Models
 {
     public class AuthenticationRegisterVM
     {
+        public string? Id { get; set; }
         [Required]
         [MaxLength(100)]
         [MinLength(3)]

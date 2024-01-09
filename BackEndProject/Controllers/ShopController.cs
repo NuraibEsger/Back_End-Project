@@ -9,7 +9,6 @@ namespace BackEndProject.Controllers
     public class ShopController : Controller
     {
         private readonly AppDbContext _dbContext;
-
         public ShopController(AppDbContext dbContext)
         {
             _dbContext = dbContext;

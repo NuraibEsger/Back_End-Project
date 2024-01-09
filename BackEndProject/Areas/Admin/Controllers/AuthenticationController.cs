@@ -4,24 +4,30 @@ using BackEndProject.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using BackEndProject.Services;
-using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
+using Microsoft.AspNet.Identity;
 using SendGrid.Helpers.Mail;
-using SendGrid;
+
 
 namespace BackEndProject.Areas.Admin.Controllers
 {
     public class AuthenticationController : BaseController
     {
-        private readonly UserManager<AppUser> _userManager;
+        private readonly SendEmail _sendEmail;
+        private readonly Microsoft.AspNetCore.Identity.UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        private readonly AppDbContext? _dbContext;
-
-        public AuthenticationController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, AppDbContext dbContext)
+        private readonly AppDbContext _dbContext;
+        private readonly IWebHostEnvironment _hostingEnvironment;
+        public AuthenticationController(Microsoft.AspNetCore.Identity.UserManager<AppUser> userManager, 
+            SignInManager<AppUser> signInManager, 
+            AppDbContext dbContext, 
+            IWebHostEnvironment hostingEnvironment,
+            SendEmail sendEmail)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _dbContext = dbContext;
+            _hostingEnvironment = hostingEnvironment;
+            _sendEmail = sendEmail;
         }
         public IActionResult Login()
         {
@@ -29,10 +35,21 @@ namespace BackEndProject.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(AuthenticationLoginVM model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(AuthenticationLoginVM model, string returnUrl)
         {
             if (!ModelState.IsValid) return View(model);
 
+            var user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user != null)
+            {
+                if (!await _userManager.IsEmailConfirmedAsync(user))
+                {
+                    ModelState.AddModelError("", "You must have a confirmed email to log on.");
+                    return View();
+                }
+            }
             var result = await _signInManager.PasswordSignInAsync(model.Email!, model.Password!, false, false);
 
             if (!result.Succeeded) return View(model);
@@ -44,38 +61,15 @@ namespace BackEndProject.Areas.Admin.Controllers
             if (User.Identity.IsAuthenticated) return BadRequest();
             return View();
         }
-        private async Task SendEmailConfirmationAsync(string email, string subject, string htmlMessage)
-        {
-            // Use your preferred email service (e.g., SendGrid, SmtpClient)
-            // Example using SendGrid:
-            var apiKey = "3c685d75a7d841e69a371eaf5b521f9d";
-            var emailToValidate = "nurayib.esger@gmail.com";
-            var url = "https://emailvalidation.abstractapi.com/v1/?api_key=3c685d75a7d841e69a371eaf5b521f9d&email=nurayib.esger@gmail.com";
-
-            // Use an HTTP client to make the request to the Abstract API
-
-            var client = new SendGridClient(url);
-            var msg = new SendGridMessage
-            {
-                From = new EmailAddress("nurayib.esger@gmail.com", "Your Name"),
-                Subject = subject,
-                PlainTextContent = htmlMessage,
-                HtmlContent = htmlMessage
-            };
-            msg.AddTo(new EmailAddress(email));
-
-            await client.SendEmailAsync(msg);
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(AuthenticationRegisterVM model)
+        public async Task<ActionResult> Register(AuthenticationRegisterVM model)
         {
             if (!ModelState.IsValid) { return View(model); }
 
             var user = await _userManager.FindByEmailAsync(model.Email!);
 
-            if (user is not null) BadRequest();
+            if (user is not null) return RedirectToAction("Login","Authentication");
 
             var newUser = new AppUser
             {
@@ -83,40 +77,40 @@ namespace BackEndProject.Areas.Admin.Controllers
                 LastName = model.LastName,
                 Email = model.Email,
                 UserName = model.Email,
-                VerificationToken = CreateRandomToken()
             };
+            var result = await _userManager.CreateAsync(newUser, model.Password);
 
-            var result = await _userManager.CreateAsync(newUser, model.Password!);
-            if (!result.Succeeded) return View();
+            if (result.Succeeded)
+            {
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(newUser);
+                var confirmationLink = Url.Action("ConfirmEmail", "Authentication", new { token, email = model.Email }, Request.Scheme);
 
-            // Send email with verification link
-            var callbackUrl = Url.Action("Verify", "Authentication", new { token = newUser.VerificationToken }, protocol: HttpContext.Request.Scheme);
-            // Implement your email sending logic here, for example using SendGrid or SmtpClient
-            // Example using SendGrid:
-            await SendEmailConfirmationAsync(newUser.Email, "Confirm your email", $"Please confirm your account by <a href='{callbackUrl}'>clicking here</a>.");
-
-            return RedirectToAction(nameof(Login));
+                bool IsSendEmail = await _sendEmail.EmailSend(model.Email!,confirmationLink);
+                if (IsSendEmail)
+                {
+                    return RedirectToAction("Login", "Authentication");
+                }
+            }
+            return View(model);
         }
-
-        [HttpPost("Verify")]
-        public async Task<IActionResult> Verify(string token)
+        public async Task<IActionResult> ConfirmEmail(string token, string email)
         {
-            var user = await _dbContext.Users.FirstOrDefaultAsync(x=> x.VerificationToken == token);
-            if(user is null) return BadRequest("Invalid Token");
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return View("Error");
 
-            await _dbContext.SaveChangesAsync();
-
-            return Ok("User Verified");
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("ConfirmEmail", "Auhtentication");
+            }
+            return RedirectToAction("View");
         }
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
 
             return RedirectToAction("Login", "Authentication");
-        }
-        private string CreateRandomToken()
-        {
-            return Convert.ToHexString(RandomNumberGenerator.GetBytes(64));
         }
     }
 }

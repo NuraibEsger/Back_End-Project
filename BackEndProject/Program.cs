@@ -1,5 +1,6 @@
 using BackEndProject.Data;
 using BackEndProject.Entity;
+using BackEndProject.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Services;
@@ -30,11 +31,15 @@ namespace BackEndProject
                 options.Password.RequiredUniqueChars = 0;
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = true;
+                options.Tokens.EmailConfirmationTokenProvider = "emailconfirmation";
             })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders()
+                .AddDefaultTokenProviders().AddTokenProvider<EmailConfirmationTokenProvider<AppUser>>("emailconfirmation");
 
             builder.Services.AddSingleton<FileService>();
+            builder.Services.AddSingleton<SendEmail>();
 
             var app = builder.Build();
 

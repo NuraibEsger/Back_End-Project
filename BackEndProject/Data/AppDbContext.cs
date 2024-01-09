@@ -1,5 +1,6 @@
 ﻿using BackEndProject.Entities;
 using BackEndProject.Entity;
+using BackEndProject.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,7 +14,6 @@ namespace BackEndProject.Data
         public DbSet<Brand> Brands { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Cart> Carts { get; set; }
-        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<SubscribeEmail> Emails { get; set; }
     }
 }

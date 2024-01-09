@@ -5072,6 +5072,22 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\IMG_9122.HEIC9343507a-e03b-4388-9fea-910cfb2e5642.HEIC))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\IMG_9122.HEICbbbe9367-af79-4312-9a2c-6b36984b133b.HEIC))">
+      <SourceType>Package</SourceType>
+      <SourceId>BackEndProject</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BackEndProject</BasePath>
+      <RelativePath>img/IMG_9122.HEICbbbe9367-af79-4312-9a2c-6b36984b133b.HEIC</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\IMG_9122.HEICbbbe9367-af79-4312-9a2c-6b36984b133b.HEIC))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\img\photo_5305641502854205908_y.jpg9ee0f91e-8cc8-4282-83ab-3e6c8c89f77e.jpg))">
       <SourceType>Package</SourceType>
       <SourceId>BackEndProject</SourceId>

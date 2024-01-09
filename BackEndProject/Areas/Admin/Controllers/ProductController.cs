@@ -1,10 +1,19 @@
 ﻿using BackEndProject.Areas.Admin.Models;
 using BackEndProject.Data;
 using BackEndProject.Entities;
+using BackEndProject.Entity;
+using BackEndProject.Services;
+using MailKit.Net.Smtp;
+using MailKit.Security;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
+using MimeKit.Text;
+using NETCore.MailKit.Core;
+using System.Net.Mail;
 using WebApplication1.Services;
 
 namespace BackEndProject.Areas.Admin.Controllers
@@ -13,10 +22,12 @@ namespace BackEndProject.Areas.Admin.Controllers
     {
         private readonly AppDbContext _dbContext;
         private readonly FileService _fileService;
-        public ProductController(AppDbContext dbContext, FileService fileService)
+        private readonly SendEmail _sendEmail;
+        public ProductController(AppDbContext dbContext, FileService fileService, SendEmail sendEmail)
         {
             _dbContext = dbContext;
             _fileService = fileService;
+            _sendEmail = sendEmail;
         }
         public IActionResult Index()
         {
@@ -62,7 +73,7 @@ namespace BackEndProject.Areas.Admin.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Add(ProductAddVM model)
+        public async Task<IActionResult> Add(ProductAddVM model)
         {
             if (!ModelState.IsValid)
             {
@@ -117,8 +128,16 @@ namespace BackEndProject.Areas.Admin.Controllers
             _dbContext.Products.Add(product);
             _dbContext.SaveChanges();
 
+            var text = $"{product.Name} is added";
+            var subscribedUsers = _dbContext.Emails.AsNoTracking().ToList();
+
+            foreach (var user in subscribedUsers)
+            {
+                bool isSend = await _sendEmail.EmailSend(user.Email, text);
+            }
             return RedirectToAction("Index");
         }
+        
         public IActionResult Update(int id)
         {
             var product = _dbContext.Products
